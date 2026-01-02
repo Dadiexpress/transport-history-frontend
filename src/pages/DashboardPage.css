@@ -1,25 +1,26 @@
 /* src/pages/DashboardPage.css */
 .dashboard-container {
   display: flex;
-  transition: padding-left 0.3s ease; /* Kugira ngo content yigire imbere buhoro */
-}
-
-/* Iyo sidebar igaragara, content irigizwa inyuma */
-.dashboard-container:not(.sidebar-collapsed) {
-  padding-left: 260px; /* Ubugari bwa sidebar + umwanya muto */
-}
-
-/* Iyo sidebar yihishe, content ifata umwanya wose */
-.dashboard-container.sidebar-collapsed {
-  padding-left: 60px; /* Ubugari bwa sidebar yihishe */
+  position: relative; /* Iyi ni ingenzi kugirango overlay ikore neza */
 }
 
 .dashboard-content {
   flex-grow: 1;
   height: 100vh;
-  overflow-y: auto; /* Gutuma content ishobora kuzamuka no kumanuka */
+  overflow-y: auto;
   background-color: #f4f7fc;
+  transition: margin-left 0.3s ease; /* Kugirango content yigire imbere buhoro */
 }
+
+/* Kuri computer nini, content irigizwa inyuma na sidebar */
+.dashboard-container:not(.sidebar-collapsed) .dashboard-content {
+  margin-left: 260px;
+}
+
+.dashboard-container.sidebar-collapsed .dashboard-content {
+  margin-left: 60px;
+}
+
 
 .page-header {
   display: flex;
@@ -28,6 +29,9 @@
   padding: 20px 30px;
   background-color: #ffffff;
   border-bottom: 1px solid #e0e0e0;
+  position: sticky; /* Kugirango header ihore hejuru iyo umanutse */
+  top: 0;
+  z-index: 998; /* Munsi ya sidebar */
 }
 
 .page-header h1 {
@@ -44,15 +48,15 @@
 .page-content {
   padding: 30px;
 }
-/* === IYI NI CODE NSHYA YO KUGIRA NGO BIGARAGARE NEZA KURI TELEPHONE === */
 
-/* Iyi ni style y'akageshi ka Hamburger Menu (uturongo dutatu) */
+/* === IYI NI CODE NSHYA YO KURI TELEPHONE === */
+
 .mobile-menu-btn {
-  display: none; /* Kubanza tukabihisha kuri computer nini */
-  position: fixed; /* Kugira ngo gahore hejuru */
+  display: none;
+  position: fixed;
   top: 15px;
   left: 15px;
-  z-index: 1001; /* Kugira ngo gahore hejuru ya byose */
+  z-index: 1001;
   background: #333;
   color: white;
   border: none;
@@ -62,36 +66,54 @@
   border-radius: 5px;
 }
 
+.mobile-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.mobile-overlay.visible {
+  display: block;
+}
+
+
 /* Iyo screen ari ntoya (nka telephone) */
 @media (max-width: 768px) {
-  /* Hisha Sidebar isanzwe */
+  
+  /* Kuraho margin ya content yashyirwagaho na computer nini */
+  .dashboard-container:not(.sidebar-collapsed) .dashboard-content,
+  .dashboard-container.sidebar-collapsed .dashboard-content {
+    margin-left: 0;
+  }
+
   .sidebar {
-    position: fixed; /* Kugira ngo itaza hejuru y'ibindi */
-    left: -100%; /* Tuyihishe hanze ya screen */
-    transition: left 0.3s ease-in-out; /* Kugira ngo ize gahoro */
+    position: fixed;
+    left: -100%; /* Ihishe hanze ya screen */
+    transition: left 0.3s ease-in-out;
     z-index: 1000;
     height: 100%;
   }
 
-  /* Iyo Sidebar igomba kugaragara (iyo twakanze kuri button) */
   .sidebar.mobile-visible {
-    left: 0; /* Yerekeze Sidebar neza */
+    left: 0; /* Yerekane neza */
+    box-shadow: 2px 0 15px rgba(0,0,0,0.2);
   }
 
-  /* Garagaza ya button ya Hamburger Menu */
   .mobile-menu-btn {
     display: block;
   }
 
-  /* Hindura content ifate umwanya wose */
   .dashboard-content {
-    margin-left: 0; /* Kuraho umwanya wa Sidebar */
-    padding-left: 15px; /* Ongeramo umwanya muto ku ruhande */
+    padding-left: 15px;
     padding-right: 15px;
   }
   
-  /* Header nayo ifate umwanya wose */
   .page-header {
-    padding-left: 50px; /* Umwanya wo gusiga button ya menu */
+    padding-left: 60px; /* Umwanya wo gusiga button ya menu */
   }
 }
