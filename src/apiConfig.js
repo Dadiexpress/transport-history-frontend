@@ -1,3 +1,3 @@
 // src/apiConfig.js
-const API_URL = 'http://dadiex.pythonanywhere.com/api';
+const API_URL = 'https://dadiex.pythonanywhere.com/api';
 export default API_URL;
