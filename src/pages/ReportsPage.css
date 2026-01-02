@@ -1,0 +1,42 @@
+/* src/pages/ReportsPage.css */
+.reports-container .form-section {
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+.reports-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+.reports-table th, .reports-table td {
+  border: 1px solid #e0e0e0;
+  padding: 12px 15px;
+  text-align: left;
+}
+.reports-table thead {
+  background-color: #f4f7fc;
+}
+.reports-table th {
+  font-weight: 600;
+}
+.total-collected {
+  color: #218838;
+  font-weight: bold;
+}
+.outstanding-balance {
+  color: #c73049;
+  font-weight: bold;
+}
+.details-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.details-btn:hover {
+  background-color: #0056b3;
+}

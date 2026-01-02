@@ -1,0 +1,39 @@
+/* src/components/DashboardContent.css */
+.dashboard-content-container h3 {
+  color: #1a1a2e;
+  margin-bottom: 20px;
+}
+
+.trips-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  border-radius: 8px;
+  overflow: hidden; /* Kugira ngo border-radius ifate kuri table */
+}
+
+.trips-table th, .trips-table td {
+  border-bottom: 1px solid #e0e0e0;
+  padding: 15px;
+  text-align: left;
+}
+
+.trips-table thead {
+  background-color: #f4f7fc;
+}
+
+.trips-table th {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.trips-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.trips-table tbody tr:hover {
+  background-color: #f9f9f9;
+}

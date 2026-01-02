@@ -1,0 +1,46 @@
+/* src/pages/DashboardPage.css */
+.dashboard-container {
+  display: flex;
+  transition: padding-left 0.3s ease; /* Kugira ngo content yigire imbere buhoro */
+}
+
+/* Iyo sidebar igaragara, content irigizwa inyuma */
+.dashboard-container:not(.sidebar-collapsed) {
+  padding-left: 260px; /* Ubugari bwa sidebar + umwanya muto */
+}
+
+/* Iyo sidebar yihishe, content ifata umwanya wose */
+.dashboard-container.sidebar-collapsed {
+  padding-left: 60px; /* Ubugari bwa sidebar yihishe */
+}
+
+.dashboard-content {
+  flex-grow: 1;
+  height: 100vh;
+  overflow-y: auto; /* Gutuma content ishobora kuzamuka no kumanuka */
+  background-color: #f4f7fc;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #1a1a2e;
+}
+
+.user-info {
+  font-weight: 500;
+  color: #555;
+}
+
+.page-content {
+  padding: 30px;
+}
