@@ -44,3 +44,54 @@
 .page-content {
   padding: 30px;
 }
+/* === IYI NI CODE NSHYA YO KUGIRA NGO BIGARAGARE NEZA KURI TELEPHONE === */
+
+/* Iyi ni style y'akageshi ka Hamburger Menu (uturongo dutatu) */
+.mobile-menu-btn {
+  display: none; /* Kubanza tukabihisha kuri computer nini */
+  position: fixed; /* Kugira ngo gahore hejuru */
+  top: 15px;
+  left: 15px;
+  z-index: 1001; /* Kugira ngo gahore hejuru ya byose */
+  background: #333;
+  color: white;
+  border: none;
+  font-size: 24px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* Iyo screen ari ntoya (nka telephone) */
+@media (max-width: 768px) {
+  /* Hisha Sidebar isanzwe */
+  .sidebar {
+    position: fixed; /* Kugira ngo itaza hejuru y'ibindi */
+    left: -100%; /* Tuyihishe hanze ya screen */
+    transition: left 0.3s ease-in-out; /* Kugira ngo ize gahoro */
+    z-index: 1000;
+    height: 100%;
+  }
+
+  /* Iyo Sidebar igomba kugaragara (iyo twakanze kuri button) */
+  .sidebar.mobile-visible {
+    left: 0; /* Yerekeze Sidebar neza */
+  }
+
+  /* Garagaza ya button ya Hamburger Menu */
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  /* Hindura content ifate umwanya wose */
+  .dashboard-content {
+    margin-left: 0; /* Kuraho umwanya wa Sidebar */
+    padding-left: 15px; /* Ongeramo umwanya muto ku ruhande */
+    padding-right: 15px;
+  }
+  
+  /* Header nayo ifate umwanya wose */
+  .page-header {
+    padding-left: 50px; /* Umwanya wo gusiga button ya menu */
+  }
+}

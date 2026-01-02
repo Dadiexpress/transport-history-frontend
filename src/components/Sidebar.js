@@ -2,15 +2,15 @@
 import React from 'react';
 import './Sidebar.css';
 
-function Sidebar({ user, onLogout, activePage, setActivePage, isCollapsed, setIsCollapsed }) {
-  // === TWASIMBUJE "Expenses Report" NA "Collector Ledger" ===
+// === TWONGEYEHO 'extraClass' ===
+function Sidebar({ user, onLogout, activePage, setActivePage, isCollapsed, setIsCollapsed, extraClass }) {
   const menuItems = [
     'Dashboard', 
     'Add Historical Trip', 
     'Add Expense', 
     'Record Payments', 
     'Reports', 
-    'Collector Ledger' // Iyi ni yo mpinduka
+    'Collector Ledger'
   ];
 
   const handleLinkClick = (page) => {
@@ -18,7 +18,8 @@ function Sidebar({ user, onLogout, activePage, setActivePage, isCollapsed, setIs
   };
 
   return (
-    <aside className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
+    // === TWONGEYEHO 'extraClass' HANO ===
+    <aside className={`sidebar ${isCollapsed ? 'collapsed' : ''} ${extraClass || ''}`}>
       <div className="sidebar-header">
         {!isCollapsed && <h2>Transport History</h2>}
         <button onClick={() => setIsCollapsed(!isCollapsed)} className="toggle-btn">
