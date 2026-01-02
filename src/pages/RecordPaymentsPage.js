@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './RecordPaymentsPage.css';
-
-const API_URL = 'http://localhost:5001/api';
+// === IYI NI YO MPINDURKA Y'INGENZI ===
+import API_URL from '../apiConfig'; // Twakuyeho URL ya localhost
 
 const PRICING = {
   PER_LARGE_SACK: 23000,
@@ -12,7 +12,6 @@ const PRICING = {
   UNPACKING_FEE_SMALL: 50,
 };
 
-// === Component ya Payment Details irimo CONSOLE.LOG ===
 function ClientPaymentDetails({ client, tripId, onPaymentDeleted } ) {
   const [showDetails, setShowDetails] = useState(false);
 
@@ -22,9 +21,6 @@ function ClientPaymentDetails({ client, tripId, onPaymentDeleted } ) {
       clientId: client.id,
       paymentId: paymentId,
     };
-
-    // === IYI NI YO LINE Y'INGENZI CYANE ===
-    console.log("Attempting to delete with data:", deletionData);
 
     if (!window.confirm("Are you sure you want to delete this payment? This action cannot be undone.")) {
       return;
@@ -70,7 +66,6 @@ function ClientPaymentDetails({ client, tripId, onPaymentDeleted } ) {
   );
 }
 
-// === Component Nyamukuru (Nta kindi cyahindutsemo) ===
 function RecordPaymentsPage({ user }) {
   const [trips, setTrips] = useState([]);
   const [selectedTripId, setSelectedTripId] = useState('');

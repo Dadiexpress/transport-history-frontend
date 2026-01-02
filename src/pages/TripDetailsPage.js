@@ -4,8 +4,8 @@ import axios from 'axios';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import './TripDetailsPage.css';
-
-const API_URL = 'http://localhost:5001/api';
+// === IYI NI YO MPINDURKA Y'INGENZI ===
+import API_URL from '../apiConfig'; // Twakuyeho URL ya localhost
 
 const PRICING = {
   PER_LARGE_SACK: 23000,
@@ -14,7 +14,6 @@ const PRICING = {
   UNPACKING_FEE_SMALL: 50,
 };
 
-// === IZI NI FUNCTIONS ZIKORA NEZA, ZIRIHO INSHURO IMWE GUSA ===
 function TripSummary({ trip } ) {
   let totalExpected = 0, totalCollected = 0, totalAdvance = 0;
   trip.manifest.forEach(client => {

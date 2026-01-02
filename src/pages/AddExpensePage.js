@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './AddExpensePage.css';
-
-const API_URL = 'http://localhost:5001/api';
+// === IYI NI YO MPINDURKA Y'INGENZI ===
+import API_URL from '../apiConfig'; // Twakuyeho URL ya localhost
 
 function AddExpensePage({ user } ) {
   const [amount, setAmount] = useState('');
@@ -26,13 +26,12 @@ function AddExpensePage({ user } ) {
       amount: parseFloat(amount),
       description: description,
       date: date,
-      recorded_by: user.username, // Uwinjiye ni we wanditse expense
+      recorded_by: user.username,
     };
 
     try {
       const response = await axios.post(`${API_URL}/expenses`, expenseData);
       setMessage({ type: 'success', content: response.data.message });
-      // Siba form nyuma yo kubika
       setAmount('');
       setDescription('');
     } catch (error) {

@@ -1,10 +1,10 @@
 // src/pages/ReportsPage.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import TripDetailsPage from './TripDetailsPage'; // Iyi import ni ingenzi
+import TripDetailsPage from './TripDetailsPage';
 import './ReportsPage.css';
-
-const API_URL = 'http://localhost:5001/api';
+// === IYI NI YO MPINDURKA Y'INGENZI ===
+import API_URL from '../apiConfig'; // Twakuyeho URL ya localhost
 
 const PRICING = {
   PER_LARGE_SACK: 23000,
@@ -17,13 +17,9 @@ function ReportsPage( ) {
   const [trips, setTrips] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
-  // === IYI NI YO MPINDURKA Y'INGENZI ===
-  // Aho guhindura page, ubu dufite state yo kumenya urugendo rwahiswemo
   const [selectedTripId, setSelectedTripId] = useState(null);
 
   useEffect(() => {
-    // Iyi function izakora gusa iyo selectedTripId ari null
     if (!selectedTripId) {
       const fetchTrips = async () => {
         setLoading(true);
@@ -38,7 +34,7 @@ function ReportsPage( ) {
       };
       fetchTrips();
     }
-  }, [selectedTripId]); // Iyi useEffect izongera gukora gusa iyo selectedTripId ihindutse
+  }, [selectedTripId]);
 
   const calculateTotals = (trip) => {
     let totalExpected = 0, totalCollected = 0;
@@ -54,13 +50,10 @@ function ReportsPage( ) {
     return { totalExpected, totalCollected, outstanding };
   };
 
-  // === IYI NI LOGIC NSHYA YO GUHINDURA PAGE ===
-  // Niba hari urugendo rwahiswemo, fungura TripDetailsPage
   if (selectedTripId) {
     return <TripDetailsPage tripId={selectedTripId} onBack={() => setSelectedTripId(null)} />;
   }
 
-  // Niba nta rugendo rwahiswemo, erekana urutonde rw'ingendo
   if (loading) return <p>Loading reports...</p>;
   if (error) return <p className="error-message">{error}</p>;
 
@@ -89,7 +82,6 @@ function ReportsPage( ) {
                   <td>{totalExpected.toLocaleString()} Rwf</td>
                   <td className="collected">{totalCollected.toLocaleString()} Rwf</td>
                   <td className="outstanding">{outstanding.toLocaleString()} Rwf</td>
-                  {/* Iyi buto ubu ihindura gusa state, ntabwo ihamagara page nshya */}
                   <td><button onClick={() => setSelectedTripId(trip.id)} className="details-btn">View Details</button></td>
                 </tr>
               );

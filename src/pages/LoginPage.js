@@ -1,9 +1,9 @@
 // src/pages/LoginPage.js
 import React, { useState } from 'react';
 import axios from 'axios';
-import './LoginPage.css'; // Tuzakora iyi file
-
-const API_URL = 'http://localhost:5001/api';
+import './LoginPage.css';
+// === IYI NI YO MPINDURKA Y'INGENZI ===
+import API_URL from '../apiConfig'; // Twakuyeho URL ya localhost
 
 function LoginPage({ onLogin } ) {
   const [username, setUsername] = useState('');
@@ -17,7 +17,7 @@ function LoginPage({ onLogin } ) {
     try {
       const response = await axios.post(`${API_URL}/login`, { username, password });
       if (response.data.status === 'success') {
-        onLogin(response.data.user); // Hamagara function yo muri App.js
+        onLogin(response.data.user);
       }
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed. Please try again.');

@@ -4,12 +4,10 @@ import axios from 'axios';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import './CollectorLedgerPage.css';
-
-const API_URL = 'http://localhost:5001/api';
+// === IYI NI YO MPINDURKA Y'INGENZI ===
+import API_URL from '../apiConfig'; // Twakuyeho URL ya localhost
 
 function CollectorLedgerPage( ) {
-  // === IYI NI YO MPINDURKA Y'INGENZI ===
-  // State ubu itangirana n'amakuru arimo ubusa, ntabwo ari undefined
   const [ledgerData, setLedgerData] = useState({ collections: [], expenses: [] });
   const [collectors, setCollectors] = useState([]);
   const [selectedCollector, setSelectedCollector] = useState('all');
@@ -26,7 +24,6 @@ function CollectorLedgerPage( ) {
         const response = await axios.get(`${API_URL}/ledger-data`);
         const data = response.data;
         
-        // Emeza ko data.collections na data.expenses ari arrays
         data.collections = data.collections || [];
         data.expenses = data.expenses || [];
         
@@ -62,7 +59,6 @@ function CollectorLedgerPage( ) {
     setIsPrinting(false);
   };
 
-  // Iyi code yo kubara ubu ntizongera gutanga error
   const filteredCollections = selectedCollector === 'all'
     ? ledgerData.collections
     : ledgerData.collections.filter(c => c.collected_by === selectedCollector);
