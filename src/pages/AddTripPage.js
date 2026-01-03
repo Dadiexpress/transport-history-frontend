@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './AddTripPage.css';
-import API_URL from '../apiConfig'; // IYI NI YO NTAMBWE Y'INGENZI CYANE
+import API_URL from '../apiConfig';
 
 function AddTripPage() {
   // State yo kubika amakuru y'urugendo
@@ -70,9 +70,6 @@ function AddTripPage() {
       manifest: manifest,
     };
 
-    // IYI NI INTAMBWE YO KUREBA AMAKURU MBERE YO KOHEREZA
-    console.log("Data being sent to backend:", tripData);
-
     try {
       const response = await axios.post(`${API_URL}/historical-trips`, tripData);
       if (response.data.status === 'success') {
@@ -82,7 +79,6 @@ function AddTripPage() {
         setManifest([]);
       }
     } catch (error) {
-      console.error("Error saving trip:", error.response || error.message);
       alert(error.response?.data?.message || "Habaye ikibazo mu kubika urugendo.");
     }
   };
