@@ -38,15 +38,21 @@ function AddTripPage() {
     setClientInfo(prev => ({ ...prev, [id]: val }));
   };
 
-  // Function yo kongera umukiriya kuri manifesite
+  // Function yo kongera umukiriya kuri manifesite (IKOSOYE)
   const handleAddClient = (e) => {
     e.preventDefault();
+    
+    // Banza urebe niba amakuru yuzuye
     if (!clientInfo.name || (clientInfo.largeSacks <= 0 && clientInfo.smallSacks <= 0)) {
       alert("Nyamuneka shyiramo izina ry'umukiriya n'umubare w'imifuka.");
-      return;
+      return; // Hagarika hano niba amakuru atuzuye
     }
+    
+    // Niba amakuru yuzuye, kora ibi bikurikira:
+    // 1. Ongeraho umukiriya kuri manifest
     setManifest(prev => [...prev, { ...clientInfo, id: Date.now() }]);
-    // Subiza form ku busa
+    
+    // 2. Subiza form ku busa
     setClientInfo({
       name: '',
       destination: 'Rusizi',
