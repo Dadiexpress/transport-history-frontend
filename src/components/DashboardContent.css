@@ -1,0 +1,76 @@
+/* src/components/DashboardContent.css (FORCE REFRESH VERSION) */
+
+.dashboard-content-container h3 {
+  color: #1a1a2e;
+  margin-bottom: 20px;
+}
+
+/* === IYI NI YO MPINDUKA Y'INGENZI === */
+/* Twahinduye .dashboard-table iba .trips-summary-table */
+.trips-summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 0.9rem;
+}
+
+.trips-summary-table th, .trips-summary-table td {
+  border-bottom: 1px solid #e0e0e0;
+  padding: 12px 15px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.trips-summary-table thead {
+  background-color: #f4f7fc;
+}
+
+.trips-summary-table th {
+  font-weight: 600;
+  color: #333;
+  text-transform: uppercase;
+}
+
+.trips-summary-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.trips-summary-table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* Iyi CSS y'ama buttons yo ntabwo ihinduka */
+.action-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 6px;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+}
+
+.action-btn:active {
+    transform: scale(0.95);
+}
+
+.action-btn.view {
+  background-color: #007bff;
+}
+
+.action-btn.view:hover {
+  background-color: #0056b3;
+}
+
+.action-btn.delete {
+  background-color: #dc3545;
+}
+
+.action-btn.delete:hover {
+  background-color: #c82333;
+}

@@ -1,0 +1,12 @@
+/* src/components/MainLayout.css */
+.main-layout-container {
+  display: flex;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #f4f7fc;
+  height: 100vh;
+  overflow-y: auto;
+}

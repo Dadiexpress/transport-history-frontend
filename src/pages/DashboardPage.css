@@ -1,0 +1,119 @@
+/* src/pages/DashboardPage.css */
+.dashboard-container {
+  display: flex;
+  position: relative; /* Iyi ni ingenzi kugirango overlay ikore neza */
+}
+
+.dashboard-content {
+  flex-grow: 1;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: #f4f7fc;
+  transition: margin-left 0.3s ease; /* Kugirango content yigire imbere buhoro */
+}
+
+/* Kuri computer nini, content irigizwa inyuma na sidebar */
+.dashboard-container:not(.sidebar-collapsed) .dashboard-content {
+  margin-left: 260px;
+}
+
+.dashboard-container.sidebar-collapsed .dashboard-content {
+  margin-left: 60px;
+}
+
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  position: sticky; /* Kugirango header ihore hejuru iyo umanutse */
+  top: 0;
+  z-index: 998; /* Munsi ya sidebar */
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #1a1a2e;
+}
+
+.user-info {
+  font-weight: 500;
+  color: #555;
+}
+
+.page-content {
+  padding: 30px;
+}
+
+/* === IYI NI CODE NSHYA YO KURI TELEPHONE === */
+
+.mobile-menu-btn {
+  display: none;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1001;
+  background: #333;
+  color: white;
+  border: none;
+  font-size: 24px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.mobile-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.mobile-overlay.visible {
+  display: block;
+}
+
+
+/* Iyo screen ari ntoya (nka telephone) */
+@media (max-width: 768px) {
+  
+  /* Kuraho margin ya content yashyirwagaho na computer nini */
+  .dashboard-container:not(.sidebar-collapsed) .dashboard-content,
+  .dashboard-container.sidebar-collapsed .dashboard-content {
+    margin-left: 0;
+  }
+
+  .sidebar {
+    position: fixed;
+    left: -100%; /* Ihishe hanze ya screen */
+    transition: left 0.3s ease-in-out;
+    z-index: 1000;
+    height: 100%;
+  }
+
+  .sidebar.mobile-visible {
+    left: 0; /* Yerekane neza */
+    box-shadow: 2px 0 15px rgba(0,0,0,0.2);
+  }
+
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  .dashboard-content {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
+  .page-header {
+    padding-left: 60px; /* Umwanya wo gusiga button ya menu */
+  }
+}
