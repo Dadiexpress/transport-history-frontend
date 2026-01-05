@@ -1,56 +1,32 @@
 // src/components/Sidebar.js
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Sidebar.css';
 
-// === TWONGEYEHO 'extraClass' ===
-function Sidebar({ user, onLogout, activePage, setActivePage, isCollapsed, setIsCollapsed, extraClass }) {
-  const menuItems = [
-    'Dashboard', 
-    'Add Historical Trip', 
-    'Add Expense', 
-    'Record Payments', 
-    'Reports', 
-    'Collector Ledger'
-  ];
-
-  const handleLinkClick = (page) => {
-    setActivePage(page);
-  };
+function Sidebar({ user, onLogout }) {
+  // Twemeza ko user object ihari mbere yo kugerageza gusoma username
+  const username = user ? user.username : 'Guest'; 
 
   return (
-    // === TWONGEYEHO 'extraClass' HANO ===
-    <aside className={`sidebar ${isCollapsed ? 'collapsed' : ''} ${extraClass || ''}`}>
+    <div className="sidebar-container">
       <div className="sidebar-header">
-        {!isCollapsed && <h2>Transport History</h2>}
-        <button onClick={() => setIsCollapsed(!isCollapsed)} className="toggle-btn">
-          {isCollapsed ? '→' : '←'}
-        </button>
+        <h2>Transport History</h2>
+        <p>Welcome, {username}</p>
       </div>
       <nav className="sidebar-nav">
-        <ul>
-          {menuItems.map(item => (
-            <li key={item}>
-              <a 
-                href="#" 
-                className={activePage === item ? 'active' : ''}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleLinkClick(item);
-                }}
-                title={item}
-              >
-                <span className="nav-text">{item}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
+        <Link to="/" className="nav-item">Dashboard</Link>
+        <Link to="/add-trip" className="nav-item">Add Historical Trip</Link>
+        <Link to="/add-expense" className="nav-item">Add Expense</Link>
+        <Link to="/record-payments" className="nav-item">Record Payments</Link>
+        <Link to="/reports" className="nav-item">Reports</Link>
+        <Link to="/collector-ledger" className="nav-item">Collector Ledger</Link>
       </nav>
       <div className="sidebar-footer">
-        <button onClick={onLogout} className="logout-btn">
-          <span className="nav-text">Logout</span>
+        <button onClick={onLogout} className="logout-button">
+          Logout
         </button>
       </div>
-    </aside>
+    </div>
   );
 }
 

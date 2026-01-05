@@ -1,81 +1,88 @@
-// src/App.js (FINAL CORRECTED VERSION - FIXES ROUTING & HYDRATION)
+// src/App.js
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import MainLayout from './components/MainLayout';
-import ProtectedRoute from './components/ProtectedRoute';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import AddTripPage from './pages/AddTripPage';
-import AddExpensePage from './pages/AddExpensePage';
-import RecordPaymentsPage from './pages/RecordPaymentsPage';
 import ReportsPage from './pages/ReportsPage';
+import RecordPaymentsPage from './pages/RecordPaymentsPage';
+import AddExpensePage from './pages/AddExpensePage';
 import CollectorLedgerPage from './pages/CollectorLedgerPage';
-import SettingsPage from './pages/SettingsPage';
 import TripDetailsPage from './pages/TripDetailsPage';
+import ProtectedRoute from './components/ProtectedRoute';
+import { PricingProvider } from './context/PricingContext';
 import './App.css';
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    try {
-      const savedUser = localStorage.getItem('user');
-      if (savedUser) {
-        setUser(JSON.parse(savedUser));
+    // Iki gice cyari cyaratumye habaho hydration error, ariko ubu turacyifashisha
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        setUser(parsedUser);
+        setIsAuthenticated(true);
+      } catch (e) {
+        console.error("Error parsing user from localStorage", e);
+        localStorage.removeItem('user');
       }
-    } catch (error) {
-      console.error("Failed to parse user from localStorage", error);
-      localStorage.removeItem('user');
     }
     setLoading(false);
   }, []);
 
   const handleLogin = (userData) => {
-    // Iyi function ubu ibika user na token muri localStorage
-    setUser(userData.user); // Twizere ko backend isubiza object ya user
-    localStorage.setItem('user', JSON.stringify(userData.user));
-    localStorage.setItem('token', userData.access_token);
+    localStorage.setItem('user', JSON.stringify(userData));
+    setUser(userData);
+    setIsAuthenticated(true);
   };
 
   const handleLogout = () => {
-    setUser(null);
     localStorage.removeItem('user');
-    localStorage.removeItem('token');
+    setUser(null);
+    setIsAuthenticated(false);
   };
 
-  // Niba tukirimo gusoma localStorage, twerekane ubutumwa bwo gutegereza
   if (loading) {
+    // Gufata umwanya muto kugira ngo hydration itazana error
     return <div>Loading application...</div>;
   }
 
   return (
-    <Router>
-      <div className="App">
+    <PricingProvider>
+      <Router>
         <Routes>
-          <Route path="/" element={!user ? <LoginPage onLogin={handleLogin} /> : <Navigate to="/dashboard" />} />
+          <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
           
-          {/* Izi routes zose zireba gusa abantu binjiye */}
-          <Route element={<ProtectedRoute user={user} />}>
-            <Route element={<MainLayout user={user} onLogout={handleLogout} />}>
-              <Route path="/dashboard" element={<DashboardPage user={user} />} />
-              <Route path="/add-trip" element={<AddTripPage user={user} />} />
-              <Route path="/add-expense" element={<AddExpensePage user={user} />} />
-              <Route path="/record-payments" element={<RecordPaymentsPage user={user} />} />
-              <Route path="/reports" element={<ReportsPage user={user} />} />
-              <Route path="/ledger" element={<CollectorLedgerPage user={user} />} />
-              <Route path="/settings" element={<SettingsPage user={user} />} />
-              <Route path="/trip/:tripId" element={<TripDetailsPage user={user} />} />
-            </Route>
+          {/* Protected Routes zose zikoresha ProtectedRoute */}
+          <Route 
+            path="/" 
+            element={
+              <ProtectedRoute 
+                isAuthenticated={isAuthenticated} 
+                user={user} 
+                onLogout={handleLogout} 
+              />
+            }
+          >
+            <Route index element={<DashboardPage />} />
+            <Route path="add-trip" element={<AddTripPage />} />
+            <Route path="reports" element={<ReportsPage />} />
+            <Route path="record-payments" element={<RecordPaymentsPage />} />
+            <Route path="add-expense" element={<AddExpensePage />} />
+            <Route path="collector-ledger" element={<CollectorLedgerPage />} />
+            <Route path="trip-details/:tripId" element={<TripDetailsPage />} />
           </Route>
-          
-          {/* Iyo umuntu ayobye inzira */}
-          <Route path="*" element={<Navigate to={user ? "/dashboard" : "/"} />} />
+
+          {/* Route yo kwerekana ko page itabonetse */}
+          <Route path="*" element={<div>404 Not Found</div>} />
         </Routes>
-      </div>
-    </Router>
+      </Router>
+    </PricingProvider>
   );
 }
-
 
 export default App;
