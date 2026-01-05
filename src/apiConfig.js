@@ -1,11 +1,11 @@
-// src/apiConfig.js (FINAL VERSION - CONTAINS EVERYTHING)
+// src/apiConfig.js
 import axios from 'axios';
 
-const API_URL = 'https://dadiex.pythonanywhere.com/api';
+export const API_URL = 'https://dadiex.pythonanywhere.com/api';
 
 const apiClient = axios.create({
   baseURL: API_URL
-} );
+}  );
 
 apiClient.interceptors.request.use(
   (config) => {
